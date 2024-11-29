@@ -12,6 +12,7 @@ const config: Config = {
       "primary-bg": "rgb(50, 59, 54)",
       white: "#fff",
       "main-bg": "rgb(230, 234, 232)",
+      "button-bg": "rgb(67, 78, 72)",
     },
     extend: {
       colors: {
