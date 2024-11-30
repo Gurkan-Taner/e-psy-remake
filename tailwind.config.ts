@@ -8,12 +8,6 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    colors: {
-      "primary-bg": "rgb(50, 59, 54)",
-      white: "#fff",
-      "main-bg": "rgb(230, 234, 232)",
-      "button-bg": "rgb(67, 78, 72)",
-    },
     extend: {
       colors: {
         background: "hsl(var(--background))",
@@ -56,6 +50,11 @@ const config: Config = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        white: "#fff",
+        "primary-300": "rgb(230, 234, 232)",
+        "primary-500": "rgb(98, 114, 106)",
+        "primary-600": "rgb(67, 78, 72)",
+        "primary-700": "rgb(50, 59, 54)",
       },
       borderRadius: {
         lg: "var(--radius)",

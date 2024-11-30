@@ -31,7 +31,7 @@ const items = [
 
 export default function SecondStep() {
   return (
-    <>
+    <div className="flex flex-col w-full gap-4">
       <h3 className="font-medium">Je souhaite parler de...</h3>
       <div className="grid md:grid-cols-3 gap-4">
         {items.map((item, i) => {
@@ -51,7 +51,7 @@ export default function SecondStep() {
           );
         })}
       </div>
-      <RadioGroup className="grid md:grid-cols-3 gap-4">
+      {/* <RadioGroup className="grid md:grid-cols-3 gap-4">
         {items.map((item, i) => {
           return (
             <div
@@ -63,7 +63,7 @@ export default function SecondStep() {
             </div>
           );
         })}
-      </RadioGroup>
-    </>
+      </RadioGroup> */}
+    </div>
   );
 }
