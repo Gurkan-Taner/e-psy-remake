@@ -4,9 +4,13 @@ import { Message } from "@/types/message";
 
 interface MessageComponentProps {
   messages: Message[];
+  clientId: string;
 }
 
-export default function MessageBox({ messages }: MessageComponentProps) {
+export default function MessageBox({
+  messages,
+  clientId,
+}: MessageComponentProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,7 +27,7 @@ export default function MessageBox({ messages }: MessageComponentProps) {
             key={`${message} - ${i}`}
             className={[
               "p-4 text-left rounded-2xl  w-fit max-w-[85%] md:max-w-[60%]",
-              message.author === "me"
+              message.author === clientId
                 ? "bg-primary-500 ml-auto text-white"
                 : "bg-white text-black",
             ].join(" ")}

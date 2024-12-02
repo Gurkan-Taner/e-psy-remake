@@ -1,7 +1,6 @@
 import Micro from "@/public/images/micro.png";
 import Speaker from "@/public/images/speaker.png";
 
-import Image from "next/image";
 import { Label } from "@/components/ui/label";
 
 import {
@@ -12,8 +11,11 @@ import {
 } from "@/components/ui/card";
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useAppContext } from "@/context/state";
 
 export default function FirstStep() {
+  const { setMode } = useAppContext();
+
   return (
     <>
       <RadioGroup className="grid grid-cols-1 md:grid-cols-2 items-center gap-8 sm:gap-4 md:gap-0">
@@ -22,7 +24,13 @@ export default function FirstStep() {
             className="relative bg-no-repeat bg-[length:150px_100%] bg-left flex flex-col p-4"
             style={{ backgroundImage: `url(${Micro.src})` }}
           >
-            <RadioGroupItem className="ml-auto" value="therapie" />
+            <RadioGroupItem
+              className="ml-auto"
+              value="therapie"
+              onClick={() => {
+                setMode("therapie");
+              }}
+            />
             <CardHeader className="text-center">
               <CardTitle className="font-semibold">
                 Je souhaite discuter
@@ -38,7 +46,13 @@ export default function FirstStep() {
             className="relative bg-no-repeat bg-[length:150px_100%] bg-left flex flex-col p-4"
             style={{ backgroundImage: `url(${Speaker.src})` }}
           >
-            <RadioGroupItem className="ml-auto" value="listener" />
+            <RadioGroupItem
+              className="ml-auto"
+              value="listener"
+              onClick={() => {
+                setMode("listener");
+              }}
+            />
             <CardHeader className="text-center">
               <CardTitle className="font-semibold">
                 Je souhaite écouter

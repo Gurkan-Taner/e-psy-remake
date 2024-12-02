@@ -28,10 +28,17 @@ const steps = [
   },
 ];
 
-const MultiStepForm = () => {
+interface ChatProps {
+  joinChat: () => void;
+}
+
+const MultiStepForm = ({ joinChat }: ChatProps) => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const nextStep = () => {
+    if (currentStep == 1) {
+      joinChat();
+    }
     setCurrentStep(currentStep + 1);
   };
 
@@ -40,7 +47,6 @@ const MultiStepForm = () => {
   };
 
   return (
-    // md:min-h-[28rem] md:max-h-[400px] max-w-[800px]
     <div className="flex flex-col items-center gap-12 h-full md:min-h-[28rem]">
       <div className="hidden sm:flex w-full justify-around gap-4">
         {steps.map((step, i) => {
@@ -103,7 +109,7 @@ const MultiStepForm = () => {
         )}
         {currentStep < steps.length - 1 && (
           <Button className="ml-auto bg-primary-600" onClick={nextStep}>
-            <p>Suivant</p>
+            <p>{currentStep === 1 ? "Rejoindre" : "Suivant"}</p>
             <p>{"->"}</p>
           </Button>
         )}
