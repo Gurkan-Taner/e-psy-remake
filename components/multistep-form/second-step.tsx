@@ -31,16 +31,16 @@ const items = [
 
 export default function SecondStep() {
   return (
-    <div className="flex flex-col w-full gap-4">
+    <div className="flex flex-col w-full gap-4 sm:p-4">
       <h3 className="font-medium">Je souhaite parler de...</h3>
-      <div className="grid md:grid-cols-3 gap-4">
+      {/* <div className="grid md:grid-cols-3 gap-4">
         {items.map((item, i) => {
           return (
             <div
               key={`${item} - ${i}`}
               className="flex items-center space-x-2 border-[1px] p-4 rounded-xl hover:scale-105 ease-in duration-100"
             >
-              <Checkbox id={item.name} />
+              <Checkbox id={item.name} className="border-gray-100" />
               <Label
                 htmlFor={item.name}
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -50,20 +50,24 @@ export default function SecondStep() {
             </div>
           );
         })}
-      </div>
-      {/* <RadioGroup className="grid md:grid-cols-3 gap-4">
+      </div> */}
+      <RadioGroup className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
         {items.map((item, i) => {
           return (
             <div
               key={`{item} - ${i}`}
               className="flex items-center space-x-2 border-[1px] p-4 rounded-xl hover:scale-105 ease-in duration-100"
             >
-              <RadioGroupItem value={item.name} id={item.name} />
+              <RadioGroupItem
+                value={item.name}
+                id={item.name}
+                className="border-gray-100"
+              />
               <Label htmlFor={item.name}>{item.label}</Label>
             </div>
           );
         })}
-      </RadioGroup> */}
+      </RadioGroup>
     </div>
   );
 }

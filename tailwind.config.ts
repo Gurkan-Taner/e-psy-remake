@@ -55,6 +55,7 @@ const config: Config = {
         "primary-500": "rgb(98, 114, 106)",
         "primary-600": "rgb(67, 78, 72)",
         "primary-700": "rgb(50, 59, 54)",
+        "gray-100": "rgb(220, 223, 222)",
       },
       borderRadius: {
         lg: "var(--radius)",
