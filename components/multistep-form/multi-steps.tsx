@@ -47,7 +47,7 @@ const MultiStepForm = ({ joinChat }: ChatProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-12 h-full md:min-h-[28rem]">
+    <div className="flex flex-col items-center gap-8 sm:gap-12 h-full md:min-h-[28rem]">
       <div className="hidden sm:flex w-full justify-around gap-4">
         {steps.map((step, i) => {
           return (

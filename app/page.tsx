@@ -36,9 +36,9 @@ export default function Home() {
           <Image alt="Icône d'avatar" src={SidebarAvatarIcon} />
         </section>
       </header>
-      <main className="flex flex-col w-full bg-primary-300 md:rounded-3xl justify-center items-center md:p-0 sm:p-5 p-3">
+      <main className="flex flex-col w-full bg-primary-0 md:rounded-3xl justify-center items-center md:p-0 sm:p-5 p-3">
         {!userState.joined ? (
-          <section className="flex flex-col bg-white rounded-2xl shadow-md p-8 w-[95%] h-[74%] sm:w-fit sm:h-fit md:min-w-[60%] md:max-w-[80%]">
+          <section className="flex flex-col bg-white rounded-2xl shadow-md p-8 w-[95%] h-[85%] sm:w-fit sm:h-fit md:min-w-[60%] md:max-w-[80%]">
             <MultiStepForm joinChat={joinChat} />
           </section>
         ) : (
