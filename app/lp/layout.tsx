@@ -7,3 +7,4 @@ export default function LpLayout({ children }: { children: ReactNode }) {
     </main>
   );
 }
+
