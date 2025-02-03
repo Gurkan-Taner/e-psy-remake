@@ -18,7 +18,7 @@ export default function FirstStep() {
 
   return (
     <>
-      <RadioGroup className="grid grid-cols-1 md:grid-cols-2 items-center gap-8 sm:gap-4 md:gap-0">
+      <RadioGroup className="grid grid-cols-1 md:grid-cols-2 items-center sm:gap-4 md:gap-0 h-[60%] my-auto">
         <Label className="hover:scale-105 ease-in duration-100 w-[80%] m-auto">
           <Card
             className="relative bg-no-repeat bg-[length:150px_100%] bg-left flex flex-col p-1 sm:p-4"

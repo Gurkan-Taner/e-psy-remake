@@ -1,18 +1,20 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import SidebarChatIcon from "@/public/icons/chat.svg";
-import SidebarAvatarIcon from "@/public/icons/avatar.svg";
-import LogoutIcon from "@/public/icons/logout.svg";
-import LogoutIconMobile from "@/public/icons/logout-mobile.svg";
+import { v4 } from "uuid";
+
+import { useAppContext } from "@/context/state";
+import { useChat } from "@/hooks/use-chat";
 
 import MultiStepForm from "@/components/multistep-form/multi-steps";
 import { Chat } from "@/components/chat/chat";
 import { Button } from "@/components/ui/button";
-import { v4 } from "uuid";
-import { useState } from "react";
-import { useAppContext } from "@/context/state";
-import { useChat } from "@/hooks/use-chat";
+
+import SidebarChatIcon from "@/public/icons/chat.svg";
+import SidebarAvatarIcon from "@/public/icons/avatar.svg";
+import LogoutIcon from "@/public/icons/logout.svg";
+import LogoutIconMobile from "@/public/icons/logout-mobile.svg";
 
 export default function Home() {
   const [clientId] = useState(v4());
@@ -38,7 +40,7 @@ export default function Home() {
       </header>
       <main className="flex flex-col w-full bg-primary-0 md:rounded-3xl justify-center items-center md:p-0 sm:p-5 p-3">
         {!userState.joined ? (
-          <section className="flex flex-col bg-white rounded-2xl shadow-md p-8 w-[95%] h-[85%] sm:w-fit sm:h-fit md:min-w-[60%] md:max-w-[80%]">
+          <section className="flex flex-col bg-white rounded-2xl shadow-md p-8 w-[95%] h-[85%] sm:w-fit sm:h-[85%] md:h-[65%] md:w-[70%]">
             <MultiStepForm joinChat={joinChat} />
           </section>
         ) : (
