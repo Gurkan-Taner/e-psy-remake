@@ -34,7 +34,7 @@ export default function SecondStep() {
   const { userState, setTherapieSubject, setListenerSubject } = useAppContext();
 
   return (
-    <div className="flex flex-col w-full gap-4 sm:p-4 my-auto overflow-y-scroll ">
+    <div className="flex flex-col w-full gap-4 sm:p-4 my-auto overflow-y-auto ">
       <h3 className="font-medium">Je souhaite parler de...</h3>
       {userState.mode === "listener" && (
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-1 sm:gap-4">
