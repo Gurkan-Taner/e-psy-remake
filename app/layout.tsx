@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { AppWrapper } from "@/context/state";
-import { ToastContainer } from "react-toastify";
 
 import localFont from "next/font/local";
 import "./globals.css";
@@ -32,8 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AppWrapper>{children}</AppWrapper>
-        <ToastContainer position="top-right" theme="light" />
+        {children}
       </body>
     </html>
   );
