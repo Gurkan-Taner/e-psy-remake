@@ -119,3 +119,4 @@ const MultiStepForm = ({ joinChat }: ChatProps) => {
 };
 
 export default MultiStepForm;
+
