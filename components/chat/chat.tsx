@@ -54,3 +54,4 @@ export const Chat = ({ clientId, sendMessage, messageList }: ChatProps) => {
     </div>
   );
 };
+
