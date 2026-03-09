@@ -1,116 +1,169 @@
-import { useEffect, useState } from "react";
-
+import { useEffect, useRef, useState, useCallback } from "react";
 import { Message } from "@/types/message";
-import { useAppContext } from "@/context/state";
 import { toast } from "react-toastify";
 
+const joinedAudio =
+  typeof window !== "undefined" ? new Audio("/audio/joined.mp3") : null;
+const leavedAudio =
+  typeof window !== "undefined" ? new Audio("/audio/leaved.mp3") : null;
+
+export interface UserState {
+  mode: string;
+  listenerSubject: string[];
+  therapieSubject: string;
+  isWaiting: boolean;
+  joined: boolean;
+  partnerLeft: boolean;
+}
+
+const DEFAULT_USER_STATE: UserState = {
+  mode: "",
+  listenerSubject: [],
+  therapieSubject: "",
+  isWaiting: false,
+  joined: false,
+  partnerLeft: false,
+};
+
 export const useChat = (clientId: string) => {
-  const [socket, setSocket] = useState<WebSocket | null>(null);
+  const socketRef = useRef<WebSocket | null>(null);
   const [messageList, setMessageList] = useState<Message[]>([]);
+  const [userState, setUserState] = useState<UserState>(DEFAULT_USER_STATE);
 
-  const {
-    userState,
-    toggleWaiting,
-    setConversationSubject,
-    setJoined,
-    joinedAudio,
-    leavedAudio,
-    setPartnerLeft,
-    setMode,
-    setTherapieSubject,
-    setListenerSubject,
-  } = useAppContext();
+  const userStateRef = useRef(userState);
+  useEffect(() => {
+    userStateRef.current = userState;
+  }, [userState]);
 
-  const joinChat = () => {
-    const newSocket = new WebSocket(process.env.NEXT_PUBLIC_WS_URL!);
-    let subject: string | string[] = "";
+  const closeSocket = useCallback(() => {
+    if (socketRef.current) {
+      socketRef.current.onclose = null;
+      socketRef.current.close();
+      socketRef.current = null;
+    }
+  }, []);
 
-    if (userState.mode === "therapie") subject = userState.therapieSubject;
-    else subject = userState.listenerSubject;
+  const joinChat = useCallback(() => {
+    if (socketRef.current) return;
 
-    newSocket.onopen = () => {
-      newSocket.send(
+    const ws = new WebSocket(process.env.NEXT_PUBLIC_WS_URL!);
+    socketRef.current = ws;
+
+    ws.onopen = () => {
+      const { mode, therapieSubject, listenerSubject } = userStateRef.current;
+      ws.send(
         JSON.stringify({
           action: "join",
-          mode: userState.mode,
-          subject,
+          mode,
+          subject: mode === "therapie" ? therapieSubject : listenerSubject,
           client_id: clientId,
-        })
+        }),
       );
     };
 
-    newSocket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data) as {
+        action: string;
+        content?: string;
+      };
 
-      if (data.action === "waiting") {
-        toggleWaiting(true);
-      } else if (data.action === "connected") {
-        joinedAudio.play();
-        toggleWaiting(false);
-        setJoined(true);
-        // if (data.therapie_subject) {
-        //   setConversationSubject(data.therapie_subject);
-        // }
-      } else if (data.action === "message") {
-        setMessageList((prev) => [
-          ...prev,
-          { author: "other", message: data.content },
-        ]);
-      } else if (data.action === "leaved") {
-        toast.info("L'utilisateur a quitté la conversation");
-        leavedAudio.play();
-        socket?.close();
-        setPartnerLeft(true);
+      switch (data.action) {
+        case "waiting":
+          setUserState((prev) => ({ ...prev, isWaiting: true }));
+          break;
+        case "connected":
+          joinedAudio?.play();
+          setUserState((prev) => ({ ...prev, isWaiting: false, joined: true }));
+          break;
+        case "message":
+          setMessageList((prev) => [
+            ...prev,
+            { author: "other", message: data.content ?? "" },
+          ]);
+          break;
+        case "leaved":
+          toast.info("L'utilisateur a quitté la conversation");
+          leavedAudio?.play();
+          setUserState((prev) => ({ ...prev, partnerLeft: true }));
+          break;
       }
     };
 
-    newSocket.onclose = () => {
-      setJoined(false);
-      setPartnerLeft(false);
-      setMessageList([]);
-      socket?.close();
+    ws.onerror = () => {
+      toast.error("Erreur de connexion au serveur.");
+      closeSocket();
     };
 
-    window.onbeforeunload = () => {
-      newSocket?.send(JSON.stringify({ action: "leave", client_id: clientId }));
-      newSocket.close();
+    ws.onclose = () => {
+      socketRef.current = null;
     };
+  }, [clientId, closeSocket]);
 
-    setSocket(newSocket);
-  };
-
-  const leaveChat = () => {
-    setMode("therapie");
-    setTherapieSubject("");
-    setListenerSubject((prev: string[]) => []);
-    socket?.send(JSON.stringify({ action: "leave", client_id: clientId }));
-    socket?.close();
+  const leaveChat = useCallback(() => {
+    socketRef.current?.send(
+      JSON.stringify({ action: "leave", client_id: clientId }),
+    );
+    closeSocket();
     setMessageList([]);
-    setJoined(false);
-  };
+    setUserState(DEFAULT_USER_STATE);
+  }, [clientId, closeSocket]);
 
-  const sendMessage = (message: string) => {
-    if (message && userState.joined) {
-      socket?.send(
+  const sendMessage = useCallback(
+    (message: string) => {
+      if (!message.trim() || !userStateRef.current.joined) return;
+      socketRef.current?.send(
         JSON.stringify({
           action: "message",
           client_id: clientId,
           content: message,
-        })
+        }),
       );
       setMessageList((prev) => [...prev, { author: clientId, message }]);
-    }
-  };
+    },
+    [clientId],
+  );
+
+  const setMode = useCallback((mode: string) => {
+    setUserState((prev) => ({ ...prev, mode }));
+  }, []);
+
+  const setTherapieSubject = useCallback((therapieSubject: string) => {
+    setUserState((prev) => ({ ...prev, therapieSubject }));
+  }, []);
+
+  const setListenerSubject = useCallback(
+    (updateFn: (prev: string[]) => string[]) => {
+      setUserState((prev) => ({
+        ...prev,
+        listenerSubject: updateFn(prev.listenerSubject),
+      }));
+    },
+    [],
+  );
 
   useEffect(() => {
-    return () => socket?.close();
-  }, [socket]);
+    const handleBeforeUnload = () => {
+      socketRef.current?.send(
+        JSON.stringify({ action: "leave", client_id: clientId }),
+      );
+      closeSocket();
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      closeSocket();
+    };
+  }, [clientId, closeSocket]);
 
   return {
+    userState,
     messageList,
     joinChat,
     leaveChat,
     sendMessage,
+    setMode,
+    setTherapieSubject,
+    setListenerSubject,
   };
 };
 

@@ -2,20 +2,19 @@ import Micro from "@/public/images/micro.png";
 import Speaker from "@/public/images/speaker.png";
 
 import { Label } from "@/components/ui/label";
-
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useAppContext } from "@/context/state";
 
-export default function FirstStep() {
-  const { setMode } = useAppContext();
+interface FirstStepProps {
+  setMode: (mode: string) => void;
+}
 
+export default function FirstStep({ setMode }: FirstStepProps) {
   return (
     <>
       <RadioGroup className="grid grid-cols-1 md:grid-cols-2 items-center sm:gap-4 md:gap-0 h-[60%] my-auto">
@@ -27,9 +26,7 @@ export default function FirstStep() {
             <RadioGroupItem
               className="ml-auto"
               value="therapie"
-              onClick={() => {
-                setMode("therapie");
-              }}
+              onClick={() => setMode("therapie")}
             />
             <CardHeader className="text-center">
               <CardTitle className="font-semibold">
@@ -49,9 +46,7 @@ export default function FirstStep() {
             <RadioGroupItem
               className="ml-auto"
               value="listener"
-              onClick={() => {
-                setMode("listener");
-              }}
+              onClick={() => setMode("listener")}
             />
             <CardHeader className="text-center">
               <CardTitle className="font-semibold">

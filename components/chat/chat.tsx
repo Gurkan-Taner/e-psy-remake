@@ -5,17 +5,21 @@ import { Input } from "../ui/input";
 import ArrowUp from "@/public/icons/arrow-narrow-up.svg";
 import { useState } from "react";
 import { Message } from "@/types/message";
-import { useAppContext } from "@/context/state";
 
 interface ChatProps {
   clientId: string;
   sendMessage: (message: string) => void;
   messageList: Message[];
+  partnerLeft: boolean;
 }
 
-export const Chat = ({ clientId, sendMessage, messageList }: ChatProps) => {
+export const Chat = ({
+  clientId,
+  sendMessage,
+  messageList,
+  partnerLeft,
+}: ChatProps) => {
   const [currentMessage, setCurrentMessage] = useState<string>("");
-  const { userState } = useAppContext();
 
   return (
     <div className="flex flex-col w-full gap-4 md:p-4 text-white md:w-[70%] h-[95%] m-auto overflow-auto">
@@ -32,16 +36,14 @@ export const Chat = ({ clientId, sendMessage, messageList }: ChatProps) => {
           <Input
             placeholder="Entrez votre message..."
             className="w-full pr-12 bg-white rounded-full text-black shadow-lg h-10 focus:border-primary-300"
-            disabled={userState.partnerLeft}
-            onChange={(e) => {
-              setCurrentMessage(e.target.value);
-            }}
+            disabled={partnerLeft}
+            onChange={(e) => setCurrentMessage(e.target.value)}
             value={currentMessage}
           />
           <Button
             color="primary"
             className="absolute top-1/2 -translate-y-1/2 right-2 rounded-full bg-primary-500 w-8 h-8 p-2 flex items-center justify-center"
-            disabled={userState.partnerLeft}
+            disabled={partnerLeft}
             onClick={() => {
               sendMessage(currentMessage);
               setCurrentMessage("");
