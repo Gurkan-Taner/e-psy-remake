@@ -1,6 +1,4 @@
-import { ToastContainer } from "react-toastify";
-
-import "react-toastify/dist/ReactToastify.css";
+import { ToastProvider, ToastContainer } from "@/components/toast/index";
 
 export default function ChatLayout({
   children,
@@ -9,8 +7,10 @@ export default function ChatLayout({
 }>) {
   return (
     <>
-      {children}
-      <ToastContainer position="top-right" theme="light" />
+      <ToastProvider>
+        {children}
+        <ToastContainer />
+      </ToastProvider>
     </>
   );
 }

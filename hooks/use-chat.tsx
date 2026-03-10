@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Message } from "@/types/message";
-import { toast } from "react-toastify";
+import { useToast } from "@/components/toast/toast-context";
 
 const joinedAudio =
   typeof window !== "undefined" ? new Audio("/audio/joined.mp3") : null;
@@ -29,6 +29,7 @@ export const useChat = (clientId: string) => {
   const socketRef = useRef<WebSocket | null>(null);
   const [messageList, setMessageList] = useState<Message[]>([]);
   const [userState, setUserState] = useState<UserState>(DEFAULT_USER_STATE);
+  const { error, info } = useToast();
 
   const userStateRef = useRef(userState);
   useEffect(() => {
@@ -82,7 +83,7 @@ export const useChat = (clientId: string) => {
           ]);
           break;
         case "leaved":
-          toast.info("L'utilisateur a quitté la conversation");
+          info("L'utilisateur a quitté la conversation");
           leavedAudio?.play();
           setUserState((prev) => ({ ...prev, partnerLeft: true }));
           break;
@@ -90,7 +91,7 @@ export const useChat = (clientId: string) => {
     };
 
     ws.onerror = () => {
-      toast.error("Erreur de connexion au serveur.");
+      error("Erreur de connexion au serveur.");
       closeSocket();
     };
 
@@ -166,5 +167,3 @@ export const useChat = (clientId: string) => {
     setListenerSubject,
   };
 };
-
-
