@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 import { Message } from "@/types/message";
@@ -23,6 +23,8 @@ export default function ChatView({
   partnerLeft,
   onSendMessage,
 }: ChatViewProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const [inputValue, setInputValue] = useState("");
 
   const topic = TOPICS.find((t) => t.id === selectedTopic);
@@ -41,6 +43,10 @@ export default function ChatView({
   };
 
   const canSend = inputValue.trim() !== "" && !partnerLeft;
+
+  useEffect(() => {
+    containerRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messageList]);
 
   return (
     <motion.div
@@ -112,6 +118,7 @@ export default function ChatView({
             );
           })
         )}
+        <div ref={containerRef} />
       </div>
 
       <div className="flex items-end gap-3 rounded-b-[20px] border border-[rgba(145,165,155,0.15)] border-t border-t-[rgba(145,165,155,0.1)] bg-[rgba(145,165,155,0.06)] px-5 py-4">
