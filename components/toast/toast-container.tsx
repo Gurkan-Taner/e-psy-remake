@@ -78,7 +78,7 @@ const typeStyles: Record<
     bar: "bg-[rgb(98,114,106)]",
   },
   error: {
-    container: "bg-transparent text-white",
+    container: "bg-[rgb(50,59,54)] text-white",
     icon: "text-white",
     iconBg: "",
     bar: "",
@@ -90,7 +90,7 @@ const typeStyles: Record<
     bar: "",
   },
   info: {
-    container: "bg-transparent text-white",
+    container: "bg-[rgb(50,59,54)] text-white",
     icon: "text-white",
     iconBg: "bg-[rgb(98,114,106)]/20",
     bar: "bg-[rgb(67,78,72)]",

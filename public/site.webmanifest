@@ -1,0 +1,11 @@
+{
+  "name": "E-Psy — Soutien émotionnel entre pairs",
+  "short_name": "E-Psy",
+  "description": "Parlez ou écoutez - connecté à quelqu'un qui vit la même chose.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "lang": "fr",
+  "categories": ["health", "lifestyle"]
+}

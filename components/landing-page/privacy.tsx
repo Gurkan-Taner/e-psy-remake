@@ -11,7 +11,10 @@ export default function Privacy() {
   };
 
   return (
-    <section className="py-32 bg-[rgb(45,53,49)]/50 relative overflow-hidden">
+    <section
+      className="py-32 bg-[rgb(45,53,49)]/50 relative overflow-hidden"
+      id="privacy"
+    >
       <motion.div
         className="max-w-[1200px] mx-auto px-12 grid md:grid-cols-2 gap-20 items-center"
         variants={containerVariants}

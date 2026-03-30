@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Bloquer les pages privées / fonctionnelles
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /session/
+Disallow: /_next/
+
+Sitemap: https://epsy.gurkan-taner.fr/sitemap.xml

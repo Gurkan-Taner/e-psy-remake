@@ -93,13 +93,14 @@ export default function Hero() {
           >
             Trouver quelqu&apos;un
           </motion.button>
-          <motion.button
+          <motion.a
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
             className="px-[44px] py-[18px] rounded-full bg-transparent border border-[rgba(145,165,155,0.35)] text-[rgba(230,234,232,0.7)] text-[16px] font-normal cursor-pointer"
+            href="#faq"
           >
             Comment ça marche
-          </motion.button>
+          </motion.a>
         </motion.div>
 
         <motion.div

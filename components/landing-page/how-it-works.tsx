@@ -10,10 +10,7 @@ export default function HowItWorks() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section
-      className="py-[120px] px-12 max-w-[1200px] mx-auto"
-      id="section-hiw"
-    >
+    <section className="py-[120px] px-12 max-w-[1200px] mx-auto" id="faq">
       <motion.div
         ref={ref}
         initial={{ opacity: 0, y: 30 }}
