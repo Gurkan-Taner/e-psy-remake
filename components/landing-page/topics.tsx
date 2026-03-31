@@ -76,7 +76,7 @@ export default function Topics() {
                 transition: { type: "spring", stiffness: 400, damping: 10 },
               }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 rounded-full border border-[rgb(145,165,155)]/20 text-[rgb(145,165,155)] cursor-default transition-all hover:bg-[rgb(145,165,155)]/10 hover:border-[rgb(145,165,155)]/40 hover:text-[#E6EAE8] backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_10px_30px_rgba(145,165,155,0.15)]"
+              className="min-w-[140px] px-6 py-4 flex items-center justify-center text-center rounded-full border border-[rgb(145,165,155)]/20 text-[rgb(145,165,155)] cursor-default transition-all hover:bg-[rgb(145,165,155)]/10 hover:border-[rgb(145,165,155)]/40 hover:text-[#E6EAE8] backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_10px_30px_rgba(145,165,155,0.15)]"
             >
               {topic.label}
             </motion.div>

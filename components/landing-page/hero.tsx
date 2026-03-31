@@ -89,14 +89,14 @@ export default function Hero() {
             onClick={() => {
               router.push("/chat");
             }}
-            className="glow-btn px-[44px] py-[18px] rounded-full bg-[rgb(98,114,106)] text-[#E6EAE8] text-[16px] font-medium tracking-[0.01em] cursor-pointer"
+            className="glow-btn flex items-center justify-center py-5 px-8 min-w-[220px] rounded-full bg-[rgb(98,114,106)] text-[#E6EAE8] text-[16px] font-medium tracking-[0.01em] cursor-pointer border border-transparent"
           >
             Trouver quelqu&apos;un
           </motion.button>
           <motion.a
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
-            className="px-[44px] py-[18px] rounded-full bg-transparent border border-[rgba(145,165,155,0.35)] text-[rgba(230,234,232,0.7)] text-[16px] font-normal cursor-pointer"
+            className="flex items-center justify-center py-5 px-8 min-w-[220px] text-center rounded-full bg-transparent border border-[rgba(145,165,155,0.35)] text-[rgba(230,234,232,0.7)] text-[16px] font-normal cursor-pointer"
             href="#faq"
           >
             Comment ça marche

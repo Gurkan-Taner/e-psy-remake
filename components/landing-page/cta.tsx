@@ -37,7 +37,7 @@ export default function Cta() {
             onClick={() => {
               router.push("/chat");
             }}
-            className="glow-btn px-[56px] py-[20px] rounded-full bg-[rgb(98,114,106)] text-[#E6EAE8] text-[17px] font-medium cursor-pointer relative"
+            className="glow-btn py-5 px-8 rounded-full bg-[rgb(98,114,106)] text-[#E6EAE8] text-[17px] font-medium cursor-pointer relative"
           >
             Commencer maintenant
           </motion.button>
